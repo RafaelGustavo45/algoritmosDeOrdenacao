@@ -11,6 +11,9 @@ public class Ordenador {
         this.e=e;
     }
 
+    public Ordenador(){
+    }
+
     public ArrayList<Integer> getList(){
         return this.e;
     }
@@ -119,6 +122,49 @@ public class Ordenador {
 
         return list;
     }
+
+    public ArrayList<Integer> mergeSort(ArrayList<Integer> list) {
+        if (list == null || list.size() <= 1) {
+            return new ArrayList<>(list);
+        }
+
+        int middle = list.size() / 2;
+        ArrayList<Integer> left = new ArrayList<>(list.subList(0, middle));
+        ArrayList<Integer> right = new ArrayList<>(list.subList(middle, list.size()));
+
+        left = mergeSort(left);
+        right = mergeSort(right);
+
+        return merge(left, right);
+    }
+    private ArrayList<Integer> merge(ArrayList<Integer> left, ArrayList<Integer> right) {
+        ArrayList<Integer> result = new ArrayList<>();
+        int i = 0, j = 0;
+
+        while (i < left.size() && j < right.size()) {
+            if (left.get(i) <= right.get(j)) {
+                result.add(left.get(i));
+                i++;
+            } else {
+                result.add(right.get(j));
+                j++;
+            }
+        }
+
+        while (i < left.size()) {
+            result.add(left.get(i));
+            i++;
+        }
+
+        while (j < right.size()) {
+            result.add(right.get(j));
+            j++;
+        }
+
+        return result;
+    }
+
+
 
 
 

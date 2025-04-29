@@ -22,45 +22,61 @@ public class Main {
         Random r = new Random();
         int mil = 1000;
         int dez_mil = 10000;
+        GeradorLista gerador = new GeradorLista();
+        ArrayList<Integer> desordenada = new ArrayList<Integer>();
+        ArrayList<String> ordenacoes = new ArrayList<String>();
+        ordenacoes.add("aleatorio");
+        ordenacoes.add("crescente");
+        ordenacoes.add("decrescente");
+        ListaCircular ordens = new ListaCircular(ordenacoes);
+        ArrayList<String> metodosOrdenadores = new ArrayList<String>();
+        metodosOrdenadores.add("bubbleSort");
+        metodosOrdenadores.add("insertionSort");
+        metodosOrdenadores.add("quickSort");
+        metodosOrdenadores.add("selectionSort");
+        metodosOrdenadores.add("mergeSort");
+        ListaCircular jeitosOrdenadores = new ListaCircular(metodosOrdenadores);
+        ArrayList<Integer> quantidades = new ArrayList<Integer>();
+        quantidades.add(1000);
+        quantidades.add(10000);
+        ListaCircularNum quantidadesOrdenadoras = new ListaCircularNum(quantidades);
+        Cronometro t = new Cronometro();
+        long tempo_total=0;
+        
 
         for (int repeticoes = 0; repeticoes < 30; repeticoes++) {
             System.out.println("Repetição: " + (repeticoes + 1));
-            ArrayList<Integer> desordenada = new ArrayList<>();
+            //ArrayList<Integer> desordenada = new ArrayList<Integer>();
 
             // --- Bubble Sort ---
-            System.out.println("----BubbleSort----");
+            System.out.println(jeitosOrdenadores.paraFrente());
 
-            // Com 1000 elementos
-            for (int i = 0; i < mil; i++) {
-                desordenada.add(r.nextInt());
-            }
-            long tempo_inicial = System.currentTimeMillis();
-            or.bubbleSort(new ArrayList<>(desordenada));
-            long tempo_final = System.currentTimeMillis();
-            long tempo_total = (tempo_final - tempo_inicial);
-            System.out.println("BubbleSort com " + mil + " elementos tempo: " + tempo_total + " ms");
+            desordenada = gerador.gerarAleatorio(mil);
+
+            tempo_total = t.Milissegundos(jeitosOrdenadores.getPosition(),desordenada);
+            System.out.println(jeitosOrdenadores.getPosition()+ " com "+ mil+ "elementos, tempo: "+ tempo_total+ "ms");
             BubbleSortMil.add(tempo_total);
             desordenada.removeAll(desordenada);
-
-            // Com 10000 elementos
-            for (int i = 0; i < dez_mil; i++) {
-                desordenada.add(r.nextInt());
-            }
-            long tempo_inicial2 = System.currentTimeMillis();
+            System.out.println("----mais ainda----");
+            desordenada = gerador.gerarAleatorio(dez_mil);
+            /*long tempo_inicial2 = System.currentTimeMillis();
             or.bubbleSort(new ArrayList<>(desordenada));
             long tempo_final2 = System.currentTimeMillis();
             long tempo_total2 = (tempo_final2 - tempo_inicial2);
             System.out.println("BubbleSort com " + dez_mil + " elementos tempo: " + tempo_total2 + " ms");
             BubbleSortDezMil.add(tempo_total2);
             desordenada.removeAll(desordenada);
+            */
 
+            tempo_total = t.Milissegundos(jeitosOrdenadores.getPosition(),desordenada);
+            System.out.println(jeitosOrdenadores.getPosition()+ " com "+ dez_mil+ "elementos, tempo: "+ tempo_total+ "ms");
+            BubbleSortDezMil.add(tempo_total);
+            desordenada.removeAll(desordenada);
             // --- Insertion Sort ---
-            System.out.println("----InsertionSort----");
+            System.out.println(jeitosOrdenadores.paraFrente());
 
             // Com 1000 elementos
-            for (int i = 0; i < mil; i++) {
-                desordenada.add(r.nextInt());
-            }
+            desordenada = gerador.gerarAleatorio(mil);
             long tempo_inicial3 = System.currentTimeMillis();
             or.insertionSort(new ArrayList<>(desordenada));
             long tempo_final3 = System.currentTimeMillis();
@@ -70,9 +86,8 @@ public class Main {
             desordenada.removeAll(desordenada);
 
             // Com 10000 elementos
-            for (int i = 0; i < dez_mil; i++) {
-                desordenada.add(r.nextInt());
-            }
+            System.out.println("-----Ainda mais ------");
+            desordenada = gerador.gerarAleatorio(dez_mil);
             long tempo_inicial4 = System.currentTimeMillis();
             or.insertionSort(new ArrayList<>(desordenada));
             long tempo_final4 = System.currentTimeMillis();
@@ -82,12 +97,10 @@ public class Main {
             desordenada.removeAll(desordenada);
 
             // --- QuickSort ---
-            System.out.println("----QuickSort----");
+            System.out.println(jeitosOrdenadores.paraFrente());
 
             // Com 1000 elementos
-            for (int i = 0; i < mil; i++) {
-                desordenada.add(r.nextInt());
-            }
+            desordenada = gerador.gerarAleatorio(mil);
             long tempo_inicial5 = System.currentTimeMillis();
             or.quickSort(new ArrayList<>(desordenada));
             long tempo_final5 = System.currentTimeMillis();
@@ -97,9 +110,8 @@ public class Main {
             desordenada.removeAll(desordenada);
 
             // Com 10000 elementos
-            for (int i = 0; i < dez_mil; i++) {
-                desordenada.add(r.nextInt());
-            }
+            System.out.println("----Ainda mais ----");
+            desordenada = gerador.gerarAleatorio(dez_mil);
             long tempo_inicial6 = System.currentTimeMillis();
             or.quickSort(new ArrayList<>(desordenada));
             long tempo_final6 = System.currentTimeMillis();
@@ -109,12 +121,10 @@ public class Main {
             desordenada.removeAll(desordenada);
 
             // --- Selection Sort ---
-            System.out.println("----SelectionSort----");
+            System.out.println(jeitosOrdenadores.paraFrente());
 
             // Com 1000 elementos
-            for (int i = 0; i < mil; i++) {
-                desordenada.add(r.nextInt());
-            }
+            desordenada = gerador.gerarAleatorio(mil);
             long tempo_inicial7 = System.currentTimeMillis();
             or.selectionSort(new ArrayList<>(desordenada));
             long tempo_final7 = System.currentTimeMillis();
@@ -124,9 +134,8 @@ public class Main {
             desordenada.removeAll(desordenada);
 
             // Com 10000 elementos
-            for (int i = 0; i < dez_mil; i++) {
-                desordenada.add(r.nextInt());
-            }
+            System.out.println(jeitosOrdenadores.paraFrente());
+            desordenada = gerador.gerarAleatorio(dez_mil);
             long tempo_inicial8 = System.currentTimeMillis();
             or.selectionSort(new ArrayList<>(desordenada));
             long tempo_final8 = System.currentTimeMillis();
@@ -136,12 +145,10 @@ public class Main {
             desordenada.removeAll(desordenada);
 
             // --- Merge Sort ---
-            System.out.println("----MergeSort----");
+            System.out.println(jeitosOrdenadores.paraFrente());
 
             // Com 1000 elementos
-            for (int i = 0; i < mil; i++) {
-                desordenada.add(r.nextInt());
-            }
+            desordenada = gerador.gerarAleatorio(mil);
             long tempo_inicial9 = System.currentTimeMillis();
             or.mergeSort(new ArrayList<>(desordenada));
             long tempo_final9 = System.currentTimeMillis();
@@ -151,9 +158,8 @@ public class Main {
             desordenada.removeAll(desordenada);
 
             // Com 10000 elementos
-            for (int i = 0; i < dez_mil; i++) {
-                desordenada.add(r.nextInt());
-            }
+            System.out.println("----Ainda mais----");
+            desordenada = gerador.gerarAleatorio(dez_mil);
             long tempo_inicial10 = System.currentTimeMillis();
             or.mergeSort(new ArrayList<>(desordenada));
             long tempo_final10 = System.currentTimeMillis();
