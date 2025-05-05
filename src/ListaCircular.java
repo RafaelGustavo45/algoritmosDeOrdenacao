@@ -8,7 +8,10 @@ public class ListaCircular {
     public ListaCircular(ArrayList<String> p){
         this.palavras=p;
         this.index=0;
+    }
 
+    public void reset(){
+        this.index=0;
     }
 
     public String paraFrente(){

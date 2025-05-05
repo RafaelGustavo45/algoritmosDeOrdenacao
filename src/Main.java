@@ -7,6 +7,8 @@ import java.util.stream.LongStream;
 public class Main {
     public static void main(String[] args) {
 
+        System.out.println("---Gerando com listas Aleatorias---");
+
         ArrayList<Long> BubbleSortMil = new ArrayList<>();
         ArrayList<Long> BubbleSortDezMil = new ArrayList<>();
         ArrayList<Long> InsertionSortMil = new ArrayList<>();
@@ -42,7 +44,7 @@ public class Main {
         ListaCircularNum quantidadesOrdenadoras = new ListaCircularNum(quantidades);
         Cronometro t = new Cronometro();
         long tempo_total=0;
-        
+
 
         for (int repeticoes = 0; repeticoes < 30; repeticoes++) {
             System.out.println("Repetição: " + (repeticoes + 1));
@@ -53,24 +55,29 @@ public class Main {
 
             desordenada = gerador.gerarAleatorio(mil);
 
-            tempo_total = t.Milissegundos(jeitosOrdenadores.getPosition(),desordenada);
+            long tempo_inicial = System.currentTimeMillis();
+            or.bubbleSort(desordenada);
+            long tempo_final = System.currentTimeMillis();
+
+            tempo_total= (tempo_final-tempo_inicial);
+            //tempo_total = t.Milissegundos(jeitosOrdenadores.getPosition(),desordenada);
             System.out.println(jeitosOrdenadores.getPosition()+ " com "+ mil+ "elementos, tempo: "+ tempo_total+ "ms");
             BubbleSortMil.add(tempo_total);
             desordenada.removeAll(desordenada);
             System.out.println("----mais ainda----");
             desordenada = gerador.gerarAleatorio(dez_mil);
-            /*long tempo_inicial2 = System.currentTimeMillis();
+            long tempo_inicial2 = System.currentTimeMillis();
             or.bubbleSort(new ArrayList<>(desordenada));
             long tempo_final2 = System.currentTimeMillis();
             long tempo_total2 = (tempo_final2 - tempo_inicial2);
             System.out.println("BubbleSort com " + dez_mil + " elementos tempo: " + tempo_total2 + " ms");
             BubbleSortDezMil.add(tempo_total2);
             desordenada.removeAll(desordenada);
-            */
 
-            tempo_total = t.Milissegundos(jeitosOrdenadores.getPosition(),desordenada);
-            System.out.println(jeitosOrdenadores.getPosition()+ " com "+ dez_mil+ "elementos, tempo: "+ tempo_total+ "ms");
-            BubbleSortDezMil.add(tempo_total);
+
+            //tempo_total = t.Milissegundos(jeitosOrdenadores.getPosition(),desordenada);
+            System.out.println(jeitosOrdenadores.getPosition()+ " com "+ dez_mil+ "elementos, tempo: "+ tempo_total2 + "ms");
+            BubbleSortDezMil.add(tempo_total2);
             desordenada.removeAll(desordenada);
             // --- Insertion Sort ---
             System.out.println(jeitosOrdenadores.paraFrente());
@@ -169,6 +176,9 @@ public class Main {
             desordenada.removeAll(desordenada);
         }
 
+        Gerador g = new Gerador();
+
+
         System.out.println("\n--- Médias de Tempo de Execução (em ms) ---");
         System.out.println("QuickSort com " + mil + " elementos: " + QuickSortMil.stream().mapToLong(Long::longValue).average().orElse(0) + " ms");
         System.out.println("QuickSort com " + dez_mil + " elementos: " + QuickSortDezMil.stream().mapToLong(Long::longValue).average().orElse(0) + " ms");
@@ -180,5 +190,20 @@ public class Main {
         System.out.println("SelectionSort com " + dez_mil + " elementos: " + SelectionSortDezMil.stream().mapToLong(Long::longValue).average().orElse(0) + " ms");
         System.out.println("MergeSort com " + mil + " elementos: " + MergeSortMil.stream().mapToLong(Long::longValue).average().orElse(0) + " ms");
         System.out.println("MergeSort com " + dez_mil + " elementos: " + MergeSortDezMil.stream().mapToLong(Long::longValue).average().orElse(0) + " ms");
+
+        System.out.println("\n--- Desvio Padrão de Tempo de Execução (em ms) ---");
+        System.out.println("QuickSort com " + mil + " elementos: " + g.desvioPadrao(QuickSortMil) + " ms");
+        System.out.println("QuickSort com " + dez_mil + " elementos: " + g.desvioPadrao(QuickSortDezMil) + " ms");
+        System.out.println("BubbleSort com " + mil + " elementos: " + g.desvioPadrao(BubbleSortMil) + " ms");
+        System.out.println("BubbleSort com " + dez_mil + " elementos: " + g.desvioPadrao(BubbleSortDezMil) + " ms");
+        System.out.println("InsertionSort com " + mil + " elementos: " + g.desvioPadrao(InsertionSortMil) + " ms");
+        System.out.println("InsertionSort com " + dez_mil + " elementos: " + g.desvioPadrao(InsertionSortDezMil) + " ms");
+        System.out.println("SelectionSort com " + mil + " elementos: " + g.desvioPadrao(SelectionSortMil) + " ms");
+        System.out.println("SelectionSort com " + dez_mil + " elementos: " + g.desvioPadrao(SelectionSortDezMil) + " ms");
+        System.out.println("MergeSort com " + mil + " elementos: " + g.desvioPadrao(MergeSortMil) + " ms");
+        System.out.println("MergeSort com " + dez_mil + " elementos: " + g.desvioPadrao(MergeSortDezMil) + " ms");
+
+        g.gerarDecrescente();
+        g.gerarOrdenadas();
     }
 }
